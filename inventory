@@ -1,4 +1,4 @@
 [coffee]
-192.168.33.12 ansible_ssh_user=vagrant ansible_ssh_private_key_file=./keys/coffee.key
+<CoffeeMakerServer_IP> ansible_ssh_user=vagrant ansible_ssh_private_key_file=./keys/<CoffeeMakerServer>.key
 [selenium]
-192.168.33.13 ansible_ssh_user=vagrant ansible_ssh_private_key_file=./keys/selenium.key
+<SeleniumServer_IP> ansible_ssh_user=vagrant ansible_ssh_private_key_file=./keys/<SeleniumServer>.key
