@@ -1,0 +1,55 @@
+---
+- hosts: coffee
+
+  vars:
+    - mysql_account: "vagrant"
+    - home_dir: "/home/vagrant"
+
+  vars_prompt:
+    - name: "root_db_password"
+      prompt: "Type your password for mysql"
+  tasks:
+  - name: download mysql
+    get_url:
+      url: https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb
+      dest: "{{home_dir}}"
+      mode: 0440
+    become: yes
+     
+  - name: install mysql repo
+    apt: "deb={{home_dir}}/mysql-apt-config_0.8.6-1_all.deb"
+    become: yes
+ 
+  - name: install python-mysqldb
+    apt:
+      name: python-mysqldb
+      state: present
+      update_cache: yes
+    become: yes
+   
+  - name: install mysql
+    apt:
+      name: mysql-server=5.7
+      state: present
+      update_cache: yes
+    become: yes
+ 
+  - name: Start the MySQL service
+    become: true
+    service: 
+      name: mysql 
+      state: started
+      enabled: true
+       
+  - name: update mysql root password for all root accounts
+    become: yes
+    mysql_user: 
+      name: root 
+      host: "{{ item }}" 
+      password: "{{ root_db_password }}"
+      login_user: root
+      login_password: "{{ root_db_password }}"
+    with_items:
+      - 127.0.0.1
+      - ::1
+      - localhost 

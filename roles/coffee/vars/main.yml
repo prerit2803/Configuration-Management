@@ -1,0 +1,4 @@
+---
+home_dir: /home/vagrant
+app_dir: /home/vagrant/onboard
+mysql_password: "{{ mysql }}"

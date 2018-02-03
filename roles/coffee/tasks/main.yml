@@ -1,0 +1,78 @@
+---
+# MySQL Installation
+- name: Download mysql repo
+  get_url:
+    url: https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb
+    dest: "{{home_dir}}"
+    mode: 0440
+  become: yes
+
+- name: Install mysql repo
+  apt: "deb={{home_dir}}/mysql-apt-config_0.8.9-1_all.deb"
+  become: yes
+
+- name: Install python-mysqldb
+  apt:
+    name: python-mysqldb
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: check latest version of mysql 5.7
+  command: bash -c "apt-cache showpkg mysql-server|grep 5.7|head -1|cut -d' ' -f1"
+  register: latestmysql57
+
+- name: Install mysql 57
+  apt:
+    name: mysql-server={{ latestmysql57.stdout }}
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: update mysql root password for all root accounts
+  become: yes
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ mysql_password }}"
+    login_user: root
+    login_password: "{{ mysql_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Start the MySQL service
+  become: yes
+  service:
+    name: mysql
+    state: started
+    enabled: true
+# Repo Clone
+- name: Clone the CoffeeMaker repo
+  git:
+    repo: https://{{ gittoken }}@github.ncsu.edu/engr-csc326-staff/Onboarding.git
+    dest: "{{app_dir}}"
+    force: yes
+
+- name: Copy Hibernate Config File
+  command: cp "{{app_dir}}"/env/templates/hibernate-template.cfg.xml "{{app_dir}}"/CoffeeMaker/src/main/resources/hibernate.cfg.xml
+  become: yes
+
+- lineinfile:
+    path: /home/vagrant/onboard/CoffeeMaker/src/main/resources/hibernate.cfg.xml
+    state: present
+    regexp: '<property name="hibernate.connection.password">'
+    line: '\t\t<property name="hibernate.connection.password">{{ mysql_password }}</property>'
+    backrefs: yes
+# Run the application
+- name: Run Spring
+  shell: nohup mvn spring-boot:run &
+  args:
+    chdir: "/home/vagrant/onboard/CoffeeMaker"
+  become: yes
+# Pause for CoffeeMaker Server to get up
+- pause:
+    minutes: 5

@@ -1,0 +1,52 @@
+---
+- name: Clone the Onboarding-Selenium repo
+  git:
+    repo: "{{repo}}"
+    dest: /home/vagrant/selenium
+    force: yes
+
+- replace:
+    path: /home/vagrant/selenium/src/src/test/java/selenium/tests/WebTest.java
+    regexp: '"http://localhost:8080/"'
+    replace: 'System.getenv("SERVER_ADDRESS")'
+    backup: yes
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- lineinfile:
+    path: /home/vagrant/selenium/src/src/test/java/selenium/tests/WebTest.java
+    state: present
+    regexp: 'headless'
+    line: 'options.addArguments( "headless" );\noptions.addArguments( "no-sandbox");'
+    backrefs: yes
+# Chrome Installation
+- name: Download chrome
+  get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: "/home/vagrant"
+    mode: 0440
+  become: yes
+
+- name: Install chrome
+  apt: "deb=/home/vagrant/google-chrome-stable_current_amd64.deb"
+  become: yes
+# Run the test
+- name: Run Selenium test for the first time which will cause Build Fail but will update the values
+  shell: mvn test
+  args:
+    chdir: "/home/vagrant/selenium/src"
+  become: yes
+  ignore_errors: yes
+
+- name: Run Selenium test second time for Build Success
+  shell: mvn test
+  args:
+    chdir: "/home/vagrant/selenium/src"
+  become: yes
+  ignore_errors: yes
+  register: test_result
+
+- debug:
+    msg: "{{test_result.stdout}}"
