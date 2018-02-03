@@ -9,6 +9,6 @@
 
 - hosts: selenium
   environment:
-    SERVER_ADDRESS: "http://192.168.33.12:8080/"
+    SERVER_ADDRESS: "http://<CoffeeMakerServer_IP>:8080/"
   roles:
     - selenium
