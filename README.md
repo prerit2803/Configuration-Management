@@ -23,11 +23,11 @@ ansible-playbook -i inventory main.yml --ask-vault-pass
 + [Demo](https://youtu.be/E_2X09Q8ozc)
 
 ## Screenshots
-+ CoffeeMaker
++ **CoffeeMaker**
 
   ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/CoffeeMaker.gif)
 
-+ Ansible Script
++ **Ansible Script**
 
   ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/AnsibleScriptRunning.gif)
 ## Sources
