@@ -30,7 +30,7 @@ ansible-playbook -i inventory main.yml --ask-vault-pass
 + Ansible Script
 
   ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/AnsibleScriptRunning.gif)
-### Sources
+## Sources
 + [Installing Java 8](https://coderwall.com/p/4ogyuw/ansible-install-java-8)
 + [Installing MySQL 5.7](http://mysql.freeideas.cz/subdom/mysql/2017/07/26/install-latest-mysql-5-7-on-remote-instance-using-ansible/)
 + [Setting Environment](https://docs.ansible.com/ansible/latest/playbooks_environment.html)
