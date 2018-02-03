@@ -12,7 +12,7 @@ ansible-vault edit group_vars/all/vars.yml
 ```
 **password for ansible-vault:** qwerty  
 
-![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/token.yml.png)
+![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/Images/token.yml.png)
 + Run the ansible script
 
 ```
@@ -25,11 +25,11 @@ ansible-playbook -i inventory main.yml --ask-vault-pass
 ## Screenshots
 + **CoffeeMaker**
 
-  ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/CoffeeMaker.gif)
+  ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/Images/CoffeeMaker.gif)
 
 + **Ansible Script**
 
-  ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/AnsibleScriptRunning.gif)
+  ![](https://github.ncsu.edu/pbhanda2/HW1-Configuration-Management/blob/master/Images/AnsibleScriptRunning.gif)
 ## Sources
 + [Installing Java 8](https://coderwall.com/p/4ogyuw/ansible-install-java-8)
 + [Installing MySQL 5.7](http://mysql.freeideas.cz/subdom/mysql/2017/07/26/install-latest-mysql-5-7-on-remote-instance-using-ansible/)
