@@ -24,6 +24,28 @@ ansible-playbook -i inventory main.yml --ask-vault-pass
 ```
 + Head over to the `http://<CoffeeMaker_IPAddress>:8080` to verify the Server is up and running.
 
+### Folder layout:
+```
+- group_vars/
+  - all/
+    - vars.yml
+- roles/
+  - common/
+    - tasks/
+      - main.yml
+  - coffee/
+    - tasks/
+      - main.yml
+    - vars/
+      - main.yml
+  - selenium/
+    - tasks/
+      - main.yml
+    - vars/
+      - main.yml
+- main.yml
+- inventory
+```
 ## Screenshots
 + **CoffeeMaker**
 
