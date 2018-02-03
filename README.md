@@ -1,4 +1,8 @@
 # HW1 - Configuration Management
+
+## Screencast
++ [Demo](https://youtu.be/E_2X09Q8ozc)
+
 ## Steps to run
 + Clone the repo.
 + Set up two servers (one for CoffeeMaker [Remember to add provision for 2048 Memory] and another for Selenium) and note the IP addresses.
@@ -19,8 +23,6 @@ ansible-vault edit group_vars/all/vars.yml
 ansible-playbook -i inventory main.yml --ask-vault-pass
 ```
 + Head over to the `http://<CoffeeMaker_IPAddress>:8080` to verify the Server is up and running.
-## Screencast
-+ [Demo](https://youtu.be/E_2X09Q8ozc)
 
 ## Screenshots
 + **CoffeeMaker**
